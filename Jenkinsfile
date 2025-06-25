@@ -4,27 +4,23 @@ pipeline {
     tools {
         maven 'Maven 3.8.1' // make sure this Maven version is configured in Jenkins
     }
-
-    stages {
+stages {
         stage('Checkout') {
             steps {
                 git branch: 'prod', url: 'https://github.com/prabakaranrenganathan/my-petclinic-jenkins.git'
             }
         }
-
-        stage('Build') {
+stage('Build') {
             steps {
                 sh 'mvn clean package -DskipTests'
             }
         }
-
         stage('Test') {
             steps {
                 sh 'mvn test'
             }
         }
-
-        stage('Archive') {
+stage('Archive') {
             steps {
                 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             }
